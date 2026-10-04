@@ -28,6 +28,12 @@ public class BookController {
         return bookService.save(book);
     }
 
+    @PutMapping("/{id}")
+    public Book update(@PathVariable Long id, @RequestBody Book book) {
+        book.setId(id);
+        return bookService.save(book);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         bookService.deleteById(id);
