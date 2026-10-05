@@ -34,3 +34,13 @@ databaseChangeLog:
               - column:
                   name: updated_at
                   type: timestamp
+  - changeSet:
+      id: 3
+      author: chloe
+      changes:
+        - addColumn:
+            tableName: book
+            columns:
+              - column:
+                  name: category
+                  type: varchar(50)

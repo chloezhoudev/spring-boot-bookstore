@@ -20,6 +20,7 @@ public class BookService {
         response.setTitle(book.getTitle());
         response.setAuthor(book.getAuthor());
         response.setPrice(book.getPrice());
+        response.setCategory(book.getCategory());
         return response;
     }
 
@@ -48,6 +49,7 @@ public class BookService {
         book.setPrice(bookRequest.getPrice());
         book.setCreatedAt(LocalDateTime.now());
         book.setUpdatedAt(LocalDateTime.now());
+        book.setCategory(bookRequest.getCategory());
 
         Book savedBook = bookRepository.save(book);
 
@@ -63,6 +65,7 @@ public class BookService {
         book.setPrice(bookRequest.getPrice());
         book.setTitle(bookRequest.getTitle());
         book.setTitle(bookRequest.getTitle());
+        book.setCategory(bookRequest.getCategory());
 
         Book savedBook = bookRepository.save(book);
 

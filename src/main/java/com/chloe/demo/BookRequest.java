@@ -9,4 +9,6 @@ public class BookRequest {
     private String title;
     private String author;
     private Double price;
+
+    private BookCategory category;
 }
