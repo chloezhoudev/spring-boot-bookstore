@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.time.LocalDateTime;
+
 @Entity
 public class Book {
 
@@ -15,6 +17,9 @@ public class Book {
     private String title;
     private String author;
     private Double price;
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public Book() {
     }
@@ -49,5 +54,21 @@ public class Book {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

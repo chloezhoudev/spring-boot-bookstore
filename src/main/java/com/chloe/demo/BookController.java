@@ -14,24 +14,23 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> findAll() {
+    public List<BookResponse> findAll() {
        return bookService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Book findById(@PathVariable Long id) {
+    public BookResponse findById(@PathVariable Long id) {
         return bookService.findById(id);
     }
 
     @PostMapping
-    public Book save(@RequestBody Book book) {
+    public BookResponse save(@RequestBody BookRequest book) {
         return bookService.save(book);
     }
 
     @PutMapping("/{id}")
-    public Book update(@PathVariable Long id, @RequestBody Book book) {
-        book.setId(id);
-        return bookService.save(book);
+    public BookResponse update(@PathVariable Long id, @RequestBody BookRequest book) {
+        return bookService.update(id, book);
     }
 
     @DeleteMapping("/{id}")

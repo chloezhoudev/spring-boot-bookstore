@@ -21,3 +21,16 @@ databaseChangeLog:
               - column:
                   name: price
                   type: double
+  - changeSet:
+      id: 2
+      author: chloe
+      changes:
+        - addColumn:
+            tableName: book
+            columns:
+              - column:
+                  name: created_at
+                  type: timestamp
+              - column:
+                  name: updated_at
+                  type: timestamp

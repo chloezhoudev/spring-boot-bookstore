@@ -1,6 +1,9 @@
 package com.chloe.demo;
 
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -11,16 +14,59 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    private BookResponse toResponse(Book book) {
+        BookResponse response = new BookResponse();
+        response.setId(book.getId());
+        response.setTitle(book.getTitle());
+        response.setAuthor(book.getAuthor());
+        response.setPrice(book.getPrice());
+        return response;
     }
 
-    public Book findById(Long id) {
-        return bookRepository.findById(id).orElse(null);
+    public List<BookResponse> findAll() {
+        List<Book> books = bookRepository.findAll();
+        List<BookResponse> responses = new ArrayList<>();
+        for (Book book : books) {
+            responses.add(toResponse(book));
+        }
+
+        return responses;
     }
 
-    public Book save(Book book) {
-        return bookRepository.save(book);
+    public BookResponse findById(Long id) {
+        Book book = bookRepository.findById(id).orElse(null);
+        if (book == null) {
+            return null;
+        }
+        return toResponse(book);
+    }
+
+    public BookResponse save(BookRequest bookRequest) {
+        Book book = new Book();
+        book.setAuthor(bookRequest.getAuthor());
+        book.setTitle(bookRequest.getTitle());
+        book.setPrice(bookRequest.getPrice());
+        book.setCreatedAt(LocalDateTime.now());
+        book.setUpdatedAt(LocalDateTime.now());
+
+        Book savedBook = bookRepository.save(book);
+
+        return toResponse(savedBook);
+    }
+
+    public BookResponse update(Long id, BookRequest bookRequest) {
+        Book book = bookRepository.findById(id).orElse(null);
+        if (book == null) {
+            return null;
+        }
+        book.setUpdatedAt(LocalDateTime.now());
+        book.setPrice(bookRequest.getPrice());
+        book.setTitle(bookRequest.getTitle());
+        book.setTitle(bookRequest.getTitle());
+
+        Book savedBook = bookRepository.save(book);
+
+        return toResponse(savedBook);
     }
 
     public void deleteById(Long id) {
