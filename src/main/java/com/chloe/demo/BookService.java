@@ -35,10 +35,7 @@ public class BookService {
     }
 
     public BookResponse findById(Long id) {
-        Book book = bookRepository.findById(id).orElse(null);
-        if (book == null) {
-            return null;
-        }
+        Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
         return toResponse(book);
     }
 
