@@ -1,5 +1,6 @@
 package com.chloe.demo;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,12 +25,12 @@ public class BookController {
     }
 
     @PostMapping
-    public BookResponse save(@RequestBody BookRequest book) {
+    public BookResponse save(@Valid @RequestBody BookRequest book) {
         return bookService.save(book);
     }
 
     @PutMapping("/{id}")
-    public BookResponse update(@PathVariable Long id, @RequestBody BookRequest book) {
+    public BookResponse update(@PathVariable Long id, @Valid @RequestBody BookRequest book) {
         return bookService.update(id, book);
     }
 
