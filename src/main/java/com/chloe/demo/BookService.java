@@ -1,5 +1,7 @@
 package com.chloe.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -9,6 +11,7 @@ import java.util.List;
 @Service
 public class BookService {
     private final BookRepository bookRepository;
+    private static final Logger logger = LoggerFactory.getLogger(BookService.class);
 
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -30,12 +33,13 @@ public class BookService {
         for (Book book : books) {
             responses.add(toResponse(book));
         }
-
+        logger.info("Finding all books");
         return responses;
     }
 
     public BookResponse findById(Long id) {
         Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+        logger.info("Book found: {}", book.getTitle());
         return toResponse(book);
     }
 
@@ -49,7 +53,7 @@ public class BookService {
         book.setCategory(bookRequest.getCategory());
 
         Book savedBook = bookRepository.save(book);
-
+        logger.info("Book saved: {}", savedBook.getTitle());
         return toResponse(savedBook);
     }
 
@@ -65,11 +69,12 @@ public class BookService {
         book.setCategory(bookRequest.getCategory());
 
         Book savedBook = bookRepository.save(book);
-
+        logger.info("Book updated: {}", book.getTitle());
         return toResponse(savedBook);
     }
 
     public void deleteById(Long id) {
         bookRepository.deleteById(id);
+        logger.info("Book deleted with id: {}", id);
     }
 }
